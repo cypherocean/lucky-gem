@@ -21,6 +21,32 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    public function signIn(Request $request)
+    {
+        $validator = Validator::make(
+            ['email' => $request->email, 'password' => $request->password],
+            ['email' => 'required', 'password' => 'required']
+        );
+
+        if ($validator->fails()) {
+            return redirect()->route('login')->withErrors($validator)->withInput();
+        } else {
+            $auth = (auth()->attempt(['email' => $request->email, 'password' => $request->password]) );
+
+            if ($auth != false) {
+                return response()->json([
+                    'status'=> 'success',
+                    'message' => 'Login successfully'
+                ], 200);
+            } else {
+                return response()->json([
+                    'status'=> 'success',
+                    'message' => 'Login failed'
+                ], 403);
+            }
+        }
+    }
+
     public function forgetPassword(Request $request)
     {
         return view('auth.forget-password');

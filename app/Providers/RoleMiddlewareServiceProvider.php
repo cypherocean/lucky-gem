@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
+use App\Http\Middleware\RoleMiddleware;
+
+class RoleMiddlewareServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap services.
+     */
+    public function boot(Router $router)
+    {
+        // Register middleware aliases
+        $router->aliasMiddleware('role', RoleMiddleware::class);
+    }
+}

@@ -24,8 +24,8 @@ class MiddlewareServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         // Register middleware aliases
-        $router->aliasMiddleware('auth', Authenticate::class);
-        $router->aliasMiddleware('guest', RedirectIfNotAuthenticated::class);
+        $router->aliasMiddleware('auth', class: Authenticate::class);
+        $router->aliasMiddleware('guest', class: RedirectIfNotAuthenticated::class);
         $router->aliasMiddleware('prevent-back-history', PreventBackHistory::class);
     }
 }

@@ -16,7 +16,7 @@ Login
             <div class="card p-md-7 p-1">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center mt-5">
-                    <a href="index.html" class="app-brand-link gap-2">
+                    <a href="{{ route('home') }}" class="app-brand-link gap-2">
                         <span class="app-brand-logo demo">
                             <span style="color: #666cff">
                                 <svg width="268" height="150" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,13 +74,14 @@ Login
                     <h4 class="mb-1">Welcome to Materialize! 👋</h4>
                     <p class="mb-5">Please sign-in to your account and start the adventure</p>
 
-                    <form id="formAuthentication" class="mb-5" action="index.html" method="GET">
+                    <form id="formAuthentication" class="mb-5" action="{{ route('sign-in') }}" method="post">
+                        @method('post')
                         <div class="form-floating form-floating-outline mb-5">
                             <input
                                 type="text"
                                 class="form-control"
                                 id="email"
-                                name="email-username"
+                                name="email"
                                 placeholder="Enter your email or username"
                                 autofocus />
                             <label for="email">Email or Username</label>
@@ -102,54 +103,16 @@ Login
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-5 d-flex justify-content-between mt-5">
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
-                            </div>
-                            <a href="auth-forgot-password-basic.html" class="float-end mb-1 mt-2">
-                                <span>Forgot Password?</span>
-                            </a>
-                        </div>
                         <div class="mb-5">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                            <button id="submit" class="btn btn-primary d-grid w-100" type="submit">Log in</button>
                         </div>
                     </form>
-
-                    <p class="text-center">
-                        <span>New on our platform?</span>
-                        <a href="auth-register-basic.html">
-                            <span>Create an account</span>
-                        </a>
-                    </p>
-
-                    <div class="divider my-5">
-                        <div class="divider-text">or</div>
-                    </div>
-
-                    <div class="d-flex justify-content-center gap-2">
-                        <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-facebook">
-                            <i class="tf-icons ri-facebook-fill"></i>
-                        </a>
-
-                        <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-twitter">
-                            <i class="tf-icons ri-twitter-fill"></i>
-                        </a>
-
-                        <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-github">
-                            <i class="tf-icons ri-github-fill"></i>
-                        </a>
-
-                        <a href="javascript:;" class="btn btn-icon rounded-circle btn-text-google-plus">
-                            <i class="tf-icons ri-google-fill"></i>
-                        </a>
-                    </div>
                 </div>
             </div>
             <!-- /Login -->
             <img
                 alt="mask"
-                src="../../assets/img/illustrations/auth-basic-login-mask-light.png"
+                src="{{ asset('assets/img/illustrations/auth-basic-login-mask-light.png') }}"
                 class="authentication-image d-none d-lg-block"
                 data-app-light-img="illustrations/auth-basic-login-mask-light.png"
                 data-app-dark-img="illustrations/auth-basic-login-mask-dark.png" />
@@ -158,3 +121,7 @@ Login
 </div>
 <!-- / Content -->
 @endsection
+
+@php
+$pageJs = ['resources/js/project/login.js'];
+@endphp

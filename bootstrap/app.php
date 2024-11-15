@@ -4,11 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Providers\MiddlewareServiceProvider;
-
-// Define a global constant for the HOME path
-if (!defined('HOME')) {
-    define('HOME', '/dashboard'); // Set your default home route here
-}
+use App\Providers\RoleMiddlewareServiceProvider;
+use Illuminate\Http\Request;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -18,13 +15,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
     ->booting(function (Application $app) {
         // Register MiddlewareServiceProvider here
-        $app->register(MiddlewareServiceProvider::class);
+        $app->register(provider: MiddlewareServiceProvider::class);
+        $app->register(RoleMiddlewareServiceProvider::class);
+        $app->singleton('home_route', fn () => env('APP_HOME', '/dashboard'));
     })
     ->create();

@@ -22,3 +22,8 @@
 
  <!-- Page JS -->
  <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
+
+ <script>
+    const APP_URL = "{{ config('env.APP_URL') }}";
+ </script>
+ @yield('scripts')

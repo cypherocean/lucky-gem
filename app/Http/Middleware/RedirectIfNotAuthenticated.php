@@ -17,7 +17,7 @@ class RedirectIfNotAuthenticated
     public function handle($request, Closure $next)
     {
         // Skip redirecting if the user is already on the login route
-        if (!Auth::check() && !$request->is('login')) {
+        if (!Auth::check() && (!$request->is('login') && $request->is('/signIn'))) {
             // Redirect to the login page if the user is not logged in
             return redirect()->route('login');
         }
